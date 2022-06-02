@@ -33,6 +33,7 @@
                 {% if cl.has_filters %}
 
                     {% for spec in cl.filter_specs %}
+                        {% comment %} 如果是日期类型或时间类型 {% endcomment %}
                         {% if spec|get_date_type == 'date' or spec|get_date_type == 'datetime' %}
 
                             <el-date-picker class="simpleui-form-item"
@@ -62,6 +63,7 @@
                             <input type="hidden" v-model="{{ spec.lookup_kwarg }}" name="{{ spec.lookup_kwarg }}"/>
                             <el-select size="small" class="simpleui-form-item" filterable v-model="{{ spec.lookup_kwarg }}" clearable
                                        placeholder="{{ spec.title }}">
+                                {% comment %} 时间类型 {% endcomment %}
                                 {% if spec|get_date_type == 'time' %}
                                     {% for option in spec.lookup_choices %}
                                         <el-option label="{{ option }}" value="{{ option|to_str }}"></el-option>
@@ -112,6 +114,7 @@
         </form>
     </div>
 
+    {% comment %} 搜索的js {% endcomment %}
     <script type="text/javascript">
         window.getLanuage = function (key) {
             if (!window.Lanuages) {
